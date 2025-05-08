@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HATUN PAZARI | Kaiser😉</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --accent: #3498db;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #1a2a3a);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 30%, rgba(0, 0, 0, 0.1) 90%);
+            opacity: 0.6;
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 6px;
+            margin-bottom: 5px;
+            position: relative;
+            display: inline-block;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transform: translateY(0);
+            transition: transform 0.3s;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .logo:hover {
+            transform: translateY(-5px);
+        }
+        
+        .author {
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            margin-top: 5px;
+            position: relative;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .products {
+            padding: 40px 0;
+        }
+        
+        .product {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .product:nth-child(1) { animation-delay: 0.2s; }
+        .product:nth-child(2) { animation-delay: 0.4s; }
+        .product:nth-child(3) { animation-delay: 0.6s; }
+        
+        .product-image {
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+            display: block; /* Ensures there's no gap below images */
+        }
+        
+        .product:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .product:hover .image-overlay {
+            opacity: 1;
+        }
+        
+        .product-details {
+            padding: 25px;
+            position: relative;
+        }
+        
+        .product-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: #aaa;
+            font-size: 1rem;
+            margin-left: 10px;
+        }
+        
+        .product-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .features {
+            margin: 20px 0;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-list li i {
+            color: var(--success);
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .purchase-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .quantity {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        .quantity-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background-color: #f0f0f0;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .quantity input {
+            width: 50px;
+            height: 36px;
+            text-align: center;
+            font-size: 1rem;
+            border: 1px solid #f0f0f0;
+            margin: 0 5px;
+        }
+        
+        .buy-btn {
+            background: linear-gradient(135deg, var(--accent), #2980b9);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            justify-content: center;
+        }
+        
+        .buy-btn i {
+            margin-right: 8px;
+        }
+        
+        .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+            box-shadow: 0 3px 8px rgba(231, 76, 60, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        .rating {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .rating i {
+            color: #f39c12;
+            margin-right: 3px;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+        
+        /* Medya sorguları ile responsive tasarım */
+        @media (max-width: 768px) {
+            .product-image {
+                height: 300px;
+            }
+            
+            .product-title {
+                font-size: 1.3rem;
+            }
+            
+            .product-price {
+                font-size: 1.2rem;
+            }
+            
+            .logo {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .product-image {
+                height: 250px;
+            }
+            
+            .purchase-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .quantity {
+                margin-right: 0;
+                margin-bottom: 15px;
+                justify-content: center;
+            }
+            
+            .logo {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">MAĞAZA</h1>
+            <p class="author">Made By Kaiser</p>
+        </div>
+    </header>
+    
+    <section class="products">
+        <div class="container">
+            <!-- Ürün 1 -->
+            <div class="product">
+                <div class="tag">ZENCİ🥵</div>
+                <div class="product-image">
+                    <!-- Using placeholder image as original had display issues -->
+                    <img src="https://i.postimg.cc/VL21Rf1G/IMG-20250508-161826-imresizer.jpg" alt="Olgun Zenci">
+                    <div class="image-overlay"></div>
+                </div>
+                <div class="product-details">
+                    <h2 class="product-title">Zenci Adam</h2>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="product-price">
+                        1.299 ₺ <span class="old-price">1.699 ₺</span>
+                    </div>
+                    <p class="product-description">Yüksek kalitede göt. Günlük kullanım için idealdir.</p>
+                    
+                    <div class="features">
+                        <h3 class="feature-title">Özellikler</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> Hafif ve esnek göt</li>
+                            <li><i class="fas fa-check-circle"></i> Nefes alabilen zenci</li>
+                            <li><i class="fas fa-check-circle"></i> mavi külotlu </li>
+                            <li><i class="fas fa-check-circle"></i> sik emici özellik</li>
+                            <li><i class="fas fa-check-circle"></i> döl geçirmez </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="purchase-controls">
+                        <div class="quantity">
+                            <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="1" min="1" max="10">
+                            <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="buy-btn"><i class="fas fa-shopping-cart"></i> Satın Al</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ürün 2 -->
+            <div class="product">
+                <div class="tag">İNDİRİMLİ!</div>
+                <div class="product-image">
+                    <!-- Using placeholder image as original had display issues -->
+                    <img src="https://i.postimg.cc/NjTtC3jg/IMG-20250508-161918-imresizer.jpg" alt="Safinaz Abla">
+                    <div class="image-overlay"></div>
+                </div>
+                <div class="product-details">
+                    <h2 class="product-title"> Safinaz Abla</h2>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product-price">
+                        1.899 ₺ <span class="old-price">2.499 ₺</span>
+                    </div>
+                    <p class="product-description">Bulabileceğiniz en ucuz karı. Özel günler için mükemmel.</p>
+                    
+                    <div class="features">
+                        <h3 class="feature-title">Özellikler</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> %100 pembe</li>
+                            <li><i class="fas fa-check-circle"></i> hasarsız göt (şüpheli)</li>
+                            <li><i class="fas fa-check-circle"></i> döl geçirmez </li>
+                            <li><i class="fas fa-check-circle"></i> esnek ve sarkık memeler</li>
+                            <li><i class="fas fa-check-circle"></i> Uzun ömürlü kullanım (daha patlamadı) </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="purchase-controls">
+                        <div class="quantity">
+                            <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="1" min="1" max="10">
+                            <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="buy-btn"><i class="fas fa-shopping-cart"></i> Satın Al</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ürün 3 -->
+            <div class="product">
+                <div class="tag">KAÇAK MAL</div>
+                <div class="product-image">
+                    <!-- Using placeholder image as original had display issues -->
+                    <img src="https://i.postimg.cc/kM172NHd/IMG-20250508-161831-imresizer.jpg" alt="Günlük Escort">
+                    <div class="image-overlay"></div>
+                </div>
+                <div class="product-details">
+                    <h2 class="product-title">Hasarlı Afgan</h2>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div class="product-price">
+                        1.499 ₺ <span class="old-price">999 ₺</span>
+                    </div>
+                    <p class="product-description">Anında boşalmanızı sağlar . Rahat bir kullanım deneyimi sunar.</p>
+                    
+                    <div class="features">
+                        <h3 class="feature-title">Özellikler</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> Yumuşak doku hissi</li>
+                            <li><i class="fas fa-check-circle"></i> pürüzsüz göt yapısı</li>
+                            <li><i class="fas fa-check-circle"></i> Darbe emici göt</li>
+                            <li><i class="fas fa-check-circle"></i> epik özellikler</li>
+                            <li><i class="fas fa-check-circle"></i> dölleriniz kolay temizlenebilir</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="purchase-controls">
+                        <div class="quantity">
+                            <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                            <input type="number" value="1" min="1" max="10">
+                            <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                        <button class="buy-btn"><i class="fas fa-shopping-cart"></i> Satın Al</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ESCORT MAĞAZASI | Made By Kaiser</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Adet güncelleme fonksiyonu
+        function updateQuantity(button, change) {
+            const input = button.parentElement.querySelector('input');
+            let value = parseInt(input.value) + change;
+            
+            // Min ve max değerlere göre kontrol
+            if (value < parseInt(input.min)) {
+                value = parseInt(input.min);
+            } else if (value > parseInt(input.max)) {
+                value = parseInt(input.max);
+            }
+            
+            input.value = value;
+        }
+        
+        // Sayfa yüklendiğinde animasyonları başlat
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ürünlerin ekrana girdiğinde animasyonunu tetiklemek için IntersectionObserver kullan
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Tüm ürünleri gözlemle
+            document.querySelectorAll('.product').forEach(product => {
+                observer.observe(product);
+            });
+            
+            // Satın al butonu animasyonu
+            document.querySelectorAll('.buy-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.innerHTML = '<i class="fas fa-check"></i> Sepete Eklendi';
+                    this.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+                    
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-shopping-cart"></i> Satın Al';
+                        this.style.background = 'linear-gradient(135deg, var(--accent), #2980b9)';
+                    }, 2000);
+                });
+            });
+            
+            // Görüntülerin yüklenmesini kontrol et
+            document.querySelectorAll('.product-image img').forEach(img => {
+                img.addEventListener('error', function() {
+                    // Görüntü yüklenmezse bir yedek görüntü kullan
+                    this.src = '/api/placeholder/400/400';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
